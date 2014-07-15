@@ -1,66 +1,41 @@
-/* jshint -W069 */
+/* jshint -W069*/
 /* global prompt:true */
+
 'use strict';
+
 var prompt = require('sync-prompt').prompt;
-//creating a object manually
-//
-var dogs = [];
 
-var d1 = {};
-d1.name = 'Fido';
-d1.age = 3;
+var Room = require('./room');
+var House = require('./house');
 
-var d2 = {name:'Spot', age:5};
+var r1 = new Room( 'living', 10, 12, 8, 'carpet', 'aqua');
+var r2 = new Room( 'dining', 8, 10, 8, 'tile', 'green');
+var r3 = new Room( 'bedroom', 9, 11, 10, 'wood', 'orange');
 
-var d3 = {};
-d3['name'] = 'Lassy';
-d3['age'] = 9;
+console.log(r1,r2,r3);
 
-var n = 'rex';
-var a = 11;
-var d4 = {name:n, age:a};
+var h1 = new House('M-4', 'brick', 1993);
+var h2 = new House('M-5', 'stone', 1785);
+var h3 = new House('M-6', 'straw', 1832);
 
-var name = 'name';
-var age = 'age';
-var d5 = {};
-d5[name] = n;
-d5[age] = a;
+h1.rooms.push(r1, r2, r3);
+console.log(h1, h2, h3);
 
-dogs.push(d1, d2, d3, d4, d5);
-
-console.log('Dogs: ', dogs);
-console.log(d1 instanceof Object);
-console.log(d1 instanceof Dog);
-
-//--------------------------------------------
-//creating objects using a constructor
-//
-
-function Dog(name, age){
-  this.name = name;
-  this.age = age;
+//originally found the area this way:
+/*var combinedArea = 0;
+for (var i = 0; i< h1.rooms.length; i++) {
+ combinedArea += h1.rooms[i].area();
 }
+console.log( 'total area is: ', combinedArea);
+*/
 
-var d6 = new Dog('fluffy', 2);
-console.log(d6);
+console.log('the area of r1 is: ', r1.area());
+console.log('the total of h1: ', h1.area());
 
-console.log(d6 instanceof Object);
-console.log(d6 instanceof Dog);
-
-
-var initiate = prompt('Create a dog? Y/N');
-
-while(initiate.toLowerCase() !== 'n'){
-  name = prompt('Name: ');
-  age = prompt('Age: ');
-  
-  var newDog = new Dog(name, age);
-  dogs.push(newDog);
-
-  initiate = prompt('Create a dog? Y/N');
-}
-console.log('Dogs: ', dogs);
+console.log('cost of paint: ', r1.costOfPaint());
 
 
-
-
+console.log('the cost of r1 : ', r1.cost());
+console.log('the cost of r2 : ', r2.cost());
+console.log('the cost of r3 : ', r3.cost());
+console.log('the cost of h1: ', h1.costTotal());
